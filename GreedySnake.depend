@@ -1,0 +1,62 @@
+# depslib dependency file v1.0
+1569454469 source:d:\aoprojects\greedysnake\controller.cpp
+	<iostream>
+	<time.h>
+	<conio.h>
+	<windows.h>
+	"controller.h"
+	"tools.h"
+	"startinterface.h"
+	"map.h"
+	"snake.h"
+	"food.h"
+	<mmsystem.h>
+
+1569248910 d:\aoprojects\greedysnake\controller.h
+
+1569216472 d:\aoprojects\greedysnake\tools.h
+
+1569454695 d:\aoprojects\greedysnake\startinterface.h
+	<deque>
+	<vector>
+	"point.h"
+
+1570536737 d:\aoprojects\greedysnake\point.h
+
+1569216292 d:\aoprojects\greedysnake\map.h
+	<vector>
+	"point.h"
+
+1569410207 d:\aoprojects\greedysnake\snake.h
+	<deque>
+	"point.h"
+	"food.h"
+
+1569216257 d:\aoprojects\greedysnake\food.h
+	"snake.h"
+
+1569294536 source:d:\aoprojects\greedysnake\map.cpp
+	"map.h"
+	<windows.h>
+
+1569216373 source:d:\aoprojects\greedysnake\point.cpp
+	"point.h"
+	"tools.h"
+	<iostream>
+
+1569293662 source:d:\aoprojects\greedysnake\tools.cpp
+	"tools.h"
+	<windows.h>
+	<stdio.h>
+
+1570537944 source:d:\aoprojects\greedysnake\food.cpp
+	"food.h"
+	"tools.h"
+	<cstdlib>
+	<iostream>
+
+1572089674 source:d:\aoprojects\greedysnake\main.cpp
+	"controller.h"
+	<windows.h>
+	<mmsystem.h>
+
