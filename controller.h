@@ -7,6 +7,7 @@ class Controller
 public:
     Controller() : speed(200), key(1), score(0) {}
     void Start();
+    void delay_sec(int);
     void Select();
     void DrawGame();
     int PlayGame();

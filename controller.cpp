@@ -9,29 +9,72 @@
 #include "snake.h"
 #include "food.h"
 
+#include <mmsystem.h>//播放音乐需要用到
+#pragma comment(lib, "winmm.lib")//播放音乐
+void Controller::delay_sec(int sec)//延时函数
+{
+	time_t start_time, cur_time;
+	time(&start_time);//获取时间
+	do
+	{
+		time(&cur_time);
+	} while((cur_time - start_time) < sec);
+}
+
 void Controller::Start()//开始界面
 {
-    SetWindowSize(41, 32);//设置窗口大小
+    SetWindowSize(41, 32);//设置窗口大小，宽41对应坐标x，高32对应坐标y
     SetColor(2);//设置开始动画颜色
     StartInterface *start = new StartInterface();//动态分配一个StartInterface类start
     start->Action();//开始动画
     delete start;//释放内存空间
 
-    /*设置关标位置，并输出提示语，等待任意键输入结束*/
+    /*设置光标位置，并输出提示语，等待任意键输入结束*/
     SetCursorPosition(13, 26);
-    std::cout << "Press any key to start... " ;
+    std::cout << "Press enter key to start... ";
     SetCursorPosition(13, 27);
-    system("pause");
+    std::cout << "请按回车键开始游戏... ";
+        /*回车开始游戏模块*/
+    int start_ch;//记录键入值
+    bool start_flag = false;//记录是否键入Enter键标记，初始置为否
+    while (( start_ch = getch()))
+    {
+        switch ( start_ch)//检测输入键
+        {
+            case 13://Enter回车键
+                start_flag = true;
+                break;
+            default://无效按键
+                break;
+        }
+        if (start_flag)
+        {
+            PlaySound(TEXT("start.wav"),NULL,SND_ASYNC|SND_NODEFAULT);//播放回车键音效
+            SetCursorPosition(13, 26);
+            SetColor(6);
+            std::cout << "Press enter key to start... ";
+            SetCursorPosition(13, 27);
+            std::cout << "请按回车键开始游戏... ";
+            SetColor(3);    //标题变色
+            start->PrintText();
+            delay_sec(4);
+            break;//输入Enter回车键确认，退出检查输入循环
+        }
+
+
+    }
 }
 
 void Controller::Select()//选择界面
 {
     /*初始化界面选项*/
+    PlaySound(TEXT("Virtual-Riot-Evil-Gameboy.wav"),NULL,SND_ASYNC|SND_NODEFAULT|SND_LOOP);//播放游戏BGM
+
     SetColor(3);
     SetCursorPosition(13, 26);
-    std::cout << "                          " ;
+    std::cout << "                           " ;
     SetCursorPosition(13, 27);
-    std::cout << "                          " ;
+    std::cout << "                           " ;
     SetCursorPosition(6, 21);
     std::cout << "请选择游戏难度：" ;
     SetCursorPosition(6, 22);
@@ -295,7 +338,7 @@ int Controller::PlayGame()//游戏二级循环
 
 void Controller::UpdateScore(const int& tmp)//更新分数
 {
-    score += key * 10 * tmp;//所得分数根据游戏难度及传人的参数tmp确定
+    score += key * 10 * tmp;//所得分数根据游戏难度及传入的参数tmp确定
 }
 
 void Controller::RewriteScore()//重绘分数
@@ -307,7 +350,7 @@ void Controller::RewriteScore()//重绘分数
     int tmp = score;
     while (tmp != 0)
     {
-        ++bit;
+        ++bit;//bit决定补几位空格
         tmp /= 10;
     }
     for (int i = 0; i < (6 - bit); ++i)
@@ -458,10 +501,11 @@ void Controller::Game()//游戏一级循环
 int Controller::GameOver()//游戏结束界面
 {
     /*绘制游戏结束界面*/
+    PlaySound(TEXT("Hard.wav"),NULL,SND_ASYNC|SND_NODEFAULT);//播放失败BGM
     Sleep(500);
-    SetColor(11);
+    SetColor(13);//界面颜色淡洋红
     SetCursorPosition(10, 8);
-    std::cout << "━━━━━━━━━━━━━━━━━━━━━━" ;
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" ;
     Sleep(30);
     SetCursorPosition(9, 9);
     std::cout << " ┃               Game Over !!!              ┃" ;
@@ -493,7 +537,7 @@ int Controller::GameOver()//游戏结束界面
     std::cout << " ┃                                          ┃" ;
     Sleep(30);
     SetCursorPosition(9, 18);
-    std::cout << " ┃    嗯，好的        不了，还是学习有意思  ┃" ;
+    std::cout << " ┃    再冲一局！        不了，还是学习有意思┃" ;
     Sleep(30);
     SetCursorPosition(9, 19);
     std::cout << " ┃                                          ┃" ;
@@ -502,12 +546,12 @@ int Controller::GameOver()//游戏结束界面
     std::cout << " ┃                                          ┃" ;
     Sleep(30);
     SetCursorPosition(10, 21);
-    std::cout << "━━━━━━━━━━━━━━━━━━━━━━" ;
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" ;
 
     Sleep(100);
     SetCursorPosition(12, 18);
     SetBackColor();
-    std::cout << "嗯，好的" ;
+    std::cout << "再冲一局！" ;
     SetCursorPosition(0, 31);
 
     /*选择部分*/
@@ -523,8 +567,8 @@ int Controller::GameOver()//游戏结束界面
             {
                 SetCursorPosition(12, 18);
                 SetBackColor();
-                std::cout << "嗯，好的" ;
-                SetCursorPosition(20, 18);
+                std::cout << "再冲一局！" ;
+                SetCursorPosition(21, 18);
                 SetColor(11);
                 std::cout << "不了，还是学习有意思" ;
                 --tmp_key;
@@ -534,12 +578,12 @@ int Controller::GameOver()//游戏结束界面
         case 77://RIGHT
             if (tmp_key < 2)
             {
-                SetCursorPosition(20, 18);
+                SetCursorPosition(21, 18);
                 SetBackColor();
                 std::cout << "不了，还是学习有意思" ;
                 SetCursorPosition(12, 18);
                 SetColor(11);
-                std::cout << "嗯，好的" ;
+                std::cout << "再冲一局！" ;
                 ++tmp_key;
             }
             break;

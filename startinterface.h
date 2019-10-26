@@ -9,7 +9,7 @@ class StartInterface
 {
 public:
     StartInterface() : speed(35) {
-        startsnake.emplace_back(Point(0,14));//Ã‰ÃŸ
+        startsnake.emplace_back(Point(0,14));//
         startsnake.emplace_back(Point(1,14));
         startsnake.emplace_back(Point(2,15));
         startsnake.emplace_back(Point(3,16));
@@ -85,8 +85,8 @@ public:
     void ClearText();
     void Action();
 private:
-    std::deque<Point> startsnake;//å¼€å§‹åŠ¨ç”»ä¸­çš„è›‡
-    std::vector<Point> textsnake;//å¼€å§‹åŠ¨ç”»ä¸­çš„æ–‡å­—
-    int speed;//åŠ¨ç”»çš„é€Ÿåº¦
+    std::deque<Point> startsnake;//¿ªÊ¼¶¯»­ÖÐµÄÉß
+    std::vector<Point> textsnake;//¿ªÊ¼¶¯»­ÖÐµÄÎÄ×Ö
+    int speed;//¶¯»­µÄËÙ¶È
 };
 #endif // STRATINTERFACE_H

@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <stdio.h>
 
-void SetWindowSize(int cols, int lines)//设置窗口大小
+void SetWindowSize(int cols, int lines)//设置窗口大小，cols列，lines行
 {
     system("title 贪吃蛇");//设置窗口标题
     char cmd[30];
@@ -12,7 +12,7 @@ void SetWindowSize(int cols, int lines)//设置窗口大小
 
 void SetCursorPosition(const int x, const int y)//设置光标位置
 {
-    COORD position;
+    COORD position;//Windows API定义的结构，表示一个字符在控制台屏幕上的坐标
     position.X = x * 2;
     position.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);

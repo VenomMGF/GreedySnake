@@ -30,15 +30,15 @@ void Snake::Move()//蛇增长
     default:
         break;
     }
-    SetColor(14);
+    SetColor(2);//蛇的颜色设置为绿色
     snake.back().PrintCircular();
 }
 
 void Snake::NormalMove()//蛇正常移动，头增长，尾缩短
 {
     Move();
-    snake.front().Clear();
-    snake.pop_front();
+    snake.front().Clear();//容器清空
+    snake.pop_front();//队首元素出队
 }
 
 bool Snake::OverEdge()//超出边界
@@ -70,28 +70,28 @@ bool Snake::HitItself()//撞到自身
 bool Snake::ChangeDirection()//改变方向
 {
     char ch;
-    if (kbhit())//kbhit函数返回值为两个，需注意
+    if (kbhit())//kbhit函数返回值为两个，功能及返回值： 检查当前是否有键盘输入，若有则返回一个非0值，否则返回0
     {
-        ch = getch();
+        ch = getch();//功能及返回值: 从键盘上读取到的字符
         switch (ch)
         {
         case -32:
             ch = getch();
             switch (ch)
             {
-            case 72:
+            case 72://小键盘方向键上
                 if (direction != Direction::DOWN)//如果方向与当前运动方向相反，无效
                     direction = Direction::UP;
                 break;
-            case 80:
+            case 80://小键盘方向键下
                 if (direction != Direction::UP)
                     direction = Direction::DOWN;
                 break;
-            case 75:
+            case 75://小键盘方向键左
                 if (direction != Direction::RIGHT)
                     direction = Direction::LEFT;
                 break;
-            case 77:
+            case 77://小键盘方向键右
                 if (direction != Direction::LEFT)
                     direction = Direction::RIGHT;
                 break;
@@ -127,7 +127,7 @@ bool Snake::GetBigFood(Food& cfood)
         cfood.big_x = 0;
         cfood.big_y = 0;
         SetCursorPosition(1, 0);
-        std::cout << "                                                            " ;
+        std::cout << "                                                            " ;//清空倒计时
         return true;
     }
     else

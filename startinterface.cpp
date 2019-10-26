@@ -6,7 +6,7 @@ void StartInterface::PrintFirst()//蛇从左边出现到完全出现的过程
 {
     for (auto& point : startsnake)
     {
-        point.Print();
+        point.PrintCircular();//绘制蛇的图形
         Sleep(speed);
     }
 }
@@ -16,9 +16,9 @@ void StartInterface::PrintSecond()//蛇从左向右移动的过程
     for (int i = 10; i != 40; ++i) //蛇头需要从10移动到40
     {
         /*计算蛇头的下一个位置，并将其压入startsnake中，绘制出来，将蛇尾去掉*/
-        int j = ( ((i-2)%8) < 4 )?( 15 + (i-2)%8 ) : ( 21 - (i-2)%8 );
+        int j = ( ((i-2)%8) < 4 )?( 15 + (i-2)%8 ) : ( 21 - (i-2)%8 );//i=10,j=15; i=11,j=16; i=12,j=17; i=13,j=18,i=14,j=17,i=15,j=16
         startsnake.emplace_back( Point(i, j) );
-        startsnake.back().Print();
+        startsnake.back().PrintCircular();
         startsnake.front().Clear();
         startsnake.pop_front();
         Sleep(speed);
@@ -65,4 +65,3 @@ void StartInterface::Action()
     PrintSecond();
     PrintThird();
 }
-
